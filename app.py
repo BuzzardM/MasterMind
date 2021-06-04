@@ -8,9 +8,14 @@ def main():
     return render_template('main.html')
 
 
-@app.route('/test')
+@app.route('/game')
 def test():
-    return render_template('test.html')
+    return render_template('game.html')
+
+
+@app.route('/stats')
+def stats():
+    return render_template('stats.html')
 
 
 if __name__ == '__main__':
