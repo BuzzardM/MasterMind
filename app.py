@@ -16,7 +16,3 @@ def test():
 @app.route('/stats')
 def stats():
     return render_template('stats.html')
-
-
-if __name__ == '__main__':
-    app.run()
