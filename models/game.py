@@ -1,6 +1,8 @@
 from models.database import db
 
 colors = ["Red", "Yellow", "White", "Brown", "Blue", "Black", "Pink", "Purple", "Green", "Orange"]
+min_pos = 4
+max_pos = 10
 
 
 class Game(db.Model):
