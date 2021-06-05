@@ -1,29 +1,34 @@
-from flask import Flask, render_template, request
+from flask import Flask
+from flask_login import LoginManager
+
+from blueprints.main import main
+from blueprints.auth import auth
+from blueprints.game import game
+from blueprints.stats import stats
+from models.database import db
 
 app = Flask(__name__)
+app.secret_key = b'\xf3\xd8\xbdU\xf40HT3\x02\xcb\x8d\x9eO\xce\x8a.\xa5E\xec1\xe0\x16\xba'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mastermind.sqlite'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.register_blueprint(main)
+app.register_blueprint(auth)
+app.register_blueprint(game, url_prefix='/game')
+app.register_blueprint(stats, url_prefix='/stats')
+
+db.init_app(app)
+
+lm = LoginManager()
+lm.login_view = 'auth.login'
+lm.init_app(app)
+
+from models.user import User
+
+with app.app_context():
+    db.drop_all()
+    db.create_all()
 
 
-@app.route('/', methods=['GET'])
-def index():
-    if request.method == 'GET':
-        return render_template('index.html')
-    else:
-        return render_template('invalid_method.html'), 405
-
-
-@app.route('/game', methods=['GET', 'POST'])
-def game():
-    if request.method == 'GET':
-        return render_template('game.html')
-    elif request.method == 'POST':
-        return '', 200
-    else:
-        return render_template('invalid_method.html'), 405
-
-
-@app.route('/stats', methods=['GET'])
-def stats():
-    if request.method == 'GET':
-        return render_template('stats.html')
-    else:
-        return render_template('invalid_method.html'), 405
+@lm.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
