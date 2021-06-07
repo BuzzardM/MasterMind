@@ -19,17 +19,17 @@
             <li><a class="nes-btn" href="{{ url_for('auth.login') }}">Login</a></li>
         {% endif %}
         {% if current_user.is_authenticated %}
+            <li><a class="nes-btn" href="{{ url_for('game.index') }}">Game</a></li>
+            <li><a class="nes-btn" href="{{ url_for('stats.index') }}">Stats</a></li>
             <li>
                 <form method="POST" action="{{ url_for('auth.logout') }}">
                     <button class="nes-btn" type="submit">Logout</button>
                 </form>
             </li>
-            <li><a class="nes-btn" href="{{ url_for('game.index') }}">Game</a></li>
-            <li><a class="nes-btn" href="{{ url_for('stats.index') }}">Stats</a></li>
         {% endif %}
     </ul>
 </nav>
-<main>
+<main class="nes-container with-title is-centered">
     <h1>{{ self.title() }}</h1>
     {% block content %}{% endblock %}
 </main>

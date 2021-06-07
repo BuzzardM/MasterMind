@@ -2,4 +2,5 @@
 {% block title %}Game{% endblock %}
 {% block content %}
     <a id="game_btn" class="nes-btn is-primary" href="{{ url_for('game.new') }}">New Game</a>
+    <a class="nes-btn is-primary" href="{{ url_for('game.get_game') }}">Play Game</a>
 {% endblock %}

@@ -31,3 +31,8 @@ def new():
         cool = Game(colors, positions, duplicate_colors)
         cool.create_new_code()
         return render_template('game/game.html')
+
+@game.route('/gameplay', methods=['GET'])
+def get_game():
+        if request.method == 'GET':
+            return render_template('game/play_game.html')
