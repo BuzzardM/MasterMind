@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
+    games = db.relationship('Game', backref='user', lazy=True)
 
     def __init__(self, email, password, name):
         self.email = email

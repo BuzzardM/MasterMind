@@ -23,10 +23,20 @@ lm.login_view = 'auth.login'
 lm.init_app(app)
 
 from models.user import User
+from models.game import COLORS
+from models.color import Color
+
+
+def fill_colors():
+    for color in COLORS:
+        db.session.add(Color(color))
+    db.session.commit()
+
 
 with app.app_context():
     db.drop_all()
     db.create_all()
+    fill_colors()
 
 
 @lm.user_loader
