@@ -56,7 +56,7 @@ def get_game(game_id: int):
     if request.method == 'GET':
         playable_game = Game.query.filter_by(id=game_id).first()
 
-        if playable_game is None:
+        if playable_game is None or current_user.id is not playable_game.player_id:
             return redirect(url_for('game.index'))
 
         return render_template('game/play_game.html')
