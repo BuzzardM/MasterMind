@@ -48,3 +48,8 @@ def new():
         db.session.commit()
 
         return render_template('game/game.html')
+
+@game.route('/gameplay', methods=['GET'])
+def get_game():
+        if request.method == 'GET':
+            return render_template('game/play_game.html')
