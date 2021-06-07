@@ -14,12 +14,10 @@ def check_login():
         return redirect(url_for('main.index'))
 
 
-@game.route('/', methods=['GET', 'POST'])
+@game.route('/', methods=['GET'])
 def index():
     if request.method == 'GET':
         return render_template('game/game.html')
-    elif request.method == 'POST':
-        return '', 200
 
 
 @game.route('/new', methods=['GET', 'POST'])
@@ -48,3 +46,25 @@ def new():
         db.session.commit()
 
         return render_template('game/game.html')
+
+
+@game.route('/<game_id>', methods=['GET'])
+def get_game(game_id: int):
+    if request.method == 'GET':
+        playable_game = Game.query.filter_by(id=game_id).first()
+
+        if playable_game is None:
+            return redirect(url_for('game.index'))
+
+        return render_template('game/play_game.html')
+
+
+@game.route('/<game_id>/guess', methods=['POST'])
+def make_guess(game_id: int):
+    if request.method == 'POST':
+        playable_game = Game.query.filter_by(id=game_id).first()
+
+        if playable_game is None:
+            return redirect(url_for('game.index'))
+
+        playable_game.guesses.append(Guess())
