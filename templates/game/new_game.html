@@ -20,15 +20,15 @@
                 <p class="title">Colors</p>
                 {% for color in colors %}
                     <label>
-                        <input type="checkbox" class="nes-checkbox" name="colors" value="{{ color }}" checked/>
-                        <span>{{ color }}</span>
+                        <input type="checkbox" class="nes-checkbox" name="colors" value="{{ color.id }}" checked/>
+                        <span>{{ color.name }}</span>
                     </label>
                 {% endfor %}
             </div>
             <div class="nes-container with-title is-centered">
                 <p class="title">Other options</p>
                 <label>
-                    <input type="checkbox" class="nes-checkbox" name="colors" value="duplicate_colors" checked/>
+                    <input type="checkbox" class="nes-checkbox" name="duplicate_colors" value="enabled" checked/>
                     <span>Duplicate colors</span>
                 </label>
             </div>

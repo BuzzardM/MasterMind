@@ -27,10 +27,8 @@ def register():
         db.session.add(new_player)
         db.session.commit()
 
-        # Remove this if you want to redirect to login page instead
         login_user(new_player)
 
-        # return redirect(url_for('auth.login'))
         return redirect(url_for('main.index'))
 
 
