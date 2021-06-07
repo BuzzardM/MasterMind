@@ -7,24 +7,25 @@
         <title>Mastermind - {% block title %}{% endblock %}</title>
         <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style.css">
     {% endblock %}
 </head>
 <body>
 <nav>
-    <ul class="">
-        <li><a href="{{ url_for('main.index') }}">Home</a></li>
+    <ul class="mainnav">
+        <li><a class="nes-btn" href="{{ url_for('main.index') }}">Home</a></li>
         {% if not current_user.is_authenticated %}
-            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            <li><a class="nes-btn" href="{{ url_for('auth.register') }}">Register</a></li>
+            <li><a class="nes-btn" href="{{ url_for('auth.login') }}">Login</a></li>
         {% endif %}
         {% if current_user.is_authenticated %}
             <li>
                 <form method="POST" action="{{ url_for('auth.logout') }}">
-                    <button type="submit">Logout</button>
+                    <button class="nes-btn" type="submit">Logout</button>
                 </form>
             </li>
-            <li><a href="{{ url_for('game.index') }}">Game</a></li>
-            <li><a href="{{ url_for('stats.index') }}">Stats</a></li>
+            <li><a class="nes-btn" href="{{ url_for('game.index') }}">Game</a></li>
+            <li><a class="nes-btn" href="{{ url_for('stats.index') }}">Stats</a></li>
         {% endif %}
     </ul>
 </nav>

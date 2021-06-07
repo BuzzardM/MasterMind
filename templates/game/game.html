@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
 {% block title %}Game{% endblock %}
 {% block content %}
-    <p>Game page</p>
+    <a id="game_btn" class="nes-btn is-primary" href="{{ url_for('game.new') }}">New Game</a>
 {% endblock %}

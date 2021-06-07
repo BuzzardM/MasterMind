@@ -1,0 +1,18 @@
+.mainnav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+}
+
+.mainnav{
+    list-style-type: none;
+}
+
+main{
+    padding: 5%;
+}
+
+#game_btn{
+    list-style-type: none;
+}
