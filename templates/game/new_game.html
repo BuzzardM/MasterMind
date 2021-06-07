@@ -4,23 +4,33 @@
     <p>New game page</p>
     <div>
         <form method="POST" action="{{ url_for('game.new') }}">
-            <label for="positions_select">Positions</label>
-            <div class="nes-select">
-                <select required id="positions_select" name="positions">
-                    <option value="" disabled selected hidden>Select...</option>
-                    {% for i in range(min_pos, max_pos + 1) %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
+            <div class="nes-container with-title is-centered">
+                <p class="title">Positions</p>
+                <div class="nes-select">
+                    <label for="positions_select"></label>
+                    <select required id="positions_select" name="positions">
+                        <option value="" disabled selected hidden>Select...</option>
+                        {% for i in range(min_pos, max_pos + 1) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
             <div class="nes-container with-title is-centered">
                 <p class="title">Colors</p>
                 {% for color in colors %}
-                <label>
-                    <input type="checkbox" class="nes-checkbox" name="colors" value="{{ color }}" checked/>
-                    <span>{{ color }}</span>
-                </label>
+                    <label>
+                        <input type="checkbox" class="nes-checkbox" name="colors" value="{{ color }}" checked/>
+                        <span>{{ color }}</span>
+                    </label>
                 {% endfor %}
+            </div>
+            <div class="nes-container with-title is-centered">
+                <p class="title">Other options</p>
+                <label>
+                    <input type="checkbox" class="nes-checkbox" name="colors" value="duplicate_colors" checked/>
+                    <span>Duplicate colors</span>
+                </label>
             </div>
             <button type="submit" class="nes-btn is-primary">Start game</button>
         </form>
