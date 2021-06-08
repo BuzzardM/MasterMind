@@ -22,8 +22,8 @@ class Game(db.Model):
     current_turn = db.Column(db.Integer)
     amount_of_positions = db.Column(db.Integer)
     duplicate_colors = db.Column(db.Boolean)
-    score = db.Column(db.Integer)
     code = db.Column(db.String(500), nullable=True)
+    completed = db.Column(db.Boolean)
 
     def generate_code(self):
         code = []

@@ -36,8 +36,8 @@ def new():
             player_id=current_user.id,
             amount_of_positions=positions,
             duplicate_colors=duplicate_colors,
-            score=0,
-            current_turn=1
+            current_turn=1,
+            completed=False
         )
 
         for color_id in color_ids:
