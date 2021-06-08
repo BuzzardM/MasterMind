@@ -16,7 +16,12 @@
                         </select>
                     </div>
                 {% endfor %}
-                <button type="submit" class="nes-btn is-primary">Guess</button>
+                {% if not game.completed %}
+                    <button type="submit" class="nes-btn is-primary"
+                            onclick="if (this.form.validate()) { this.disabled = true; this.form.submit(); }">
+                        Guess
+                    </button>
+                {% endif %}
             </form>
         </div>
         <div class="box nes-container with-title">
@@ -40,10 +45,10 @@
             </section>
         </div>
     </div>
-    <div class="nes-container">
-        <progress class="nes-progress is-pattern" value="50" max="100"></progress>
-        {% if game.cheat_mode %}
+    {% if game.cheat_mode %}
+        <div class="nes-container with-title">
+            <p class="title">Cheat menu</p>
             <p>{{ game.code }}</p>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}

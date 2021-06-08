@@ -2,4 +2,8 @@
 {% block title %}Stats{% endblock %}
 {% block content %}
     <p>{{ user.name }}'s stats page</p>
+    <p>Games played: {{ len(user.games) }}</p>
+    <p>Games completed: {{ len(completed_games) }}</p>
+    <p>Games cheated: {{ len(cheated_games) }}</p>
+    <p>Total turns played: {{ total_turns }}</p>
 {% endblock %}

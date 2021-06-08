@@ -10,6 +10,7 @@ from models.guess import Guess
 from models.guesses_in_game import guesses_in_game
 
 COLORS = ['Red', 'Yellow', 'White', 'Brown', 'Blue', 'Black', 'Pink', 'Purple', 'Green', 'Orange']
+MIN_COLORS = 6
 MIN_POS = 4
 MAX_POS = 10
 
@@ -26,14 +27,14 @@ class Game(db.Model):
     cheat_mode = db.Column(db.Boolean)
     code = db.Column(db.String(500), nullable=True)
     completed = db.Column(db.Boolean)
-    created_date = db.Column(db.DateTime, default=datetime.datetime.now())
+    created_date = db.Column(db.DateTime, default=datetime.datetime.now)
 
     def generate_code(self):
         code = []
-        colors = self.colors
+        colors = self.colors.copy()
 
         while len(code) < int(self.amount_of_positions):
-            entry = random.choice(self.colors)
+            entry = random.choice(colors)
             code.append(entry.name)
             if self.duplicate_colors is False:
                 colors.remove(entry)

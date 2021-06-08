@@ -4,7 +4,7 @@ from flask_login import current_user
 from models.answer import Answer
 from models.color import Color
 from models.database import db
-from models.game import MIN_POS, MAX_POS, Game
+from models.game import MIN_COLORS, MIN_POS, MAX_POS, Game
 from models.guess import Guess
 
 game = Blueprint('game', __name__)
@@ -29,17 +29,24 @@ def new():
         colors = Color.query.all()
         return render_template('game/new_game.html', colors=colors, min_pos=MIN_POS, max_pos=MAX_POS)
     if request.method == 'POST':
-        positions: int = request.form.get('positions')
+        positions = int(request.form.get('positions'))
         color_ids = request.form.getlist('colors')
-        duplicate_colors: bool = (request.form.get('duplicate_colors') == 'enabled')
-        cheat_mode: bool = (request.form.get('cheat_mode') == 'enabled')
+        duplicate_colors = (request.form.get('duplicate_colors') == 'enabled')
+        cheat_mode = (request.form.get('cheat_mode') == 'enabled')
+
+        # TODO: ADD FLASH MESSAGE LOGIC
+        if len(color_ids) < MIN_COLORS:
+            return redirect(url_for('game.new'))
+
+        if duplicate_colors is False and len(color_ids) < positions:
+            return redirect(url_for('game.new'))
 
         new_game = Game(
             player_id=current_user.id,
             amount_of_positions=positions,
             duplicate_colors=duplicate_colors,
             cheat_mode=cheat_mode,
-            current_turn=1,
+            current_turn=0,
             completed=False
         )
 
@@ -73,6 +80,8 @@ def make_guess(game_id: int):
         if playable_game is None:
             return redirect(url_for('game.index'))
 
+        playable_game.current_turn += 1
+
         guess = request.form.getlist('guess')
 
         new_guess = Guess(
@@ -93,8 +102,17 @@ def make_guess(game_id: int):
 
         playable_game.guesses.append(new_guess)
         playable_game.answers.append(new_answer)
-        playable_game.current_turn += 1
 
         db.session.commit()
 
-        return redirect(url_for('game.get_game',  game_id=playable_game.id))
+        return redirect(url_for('game.get_game', game_id=playable_game.id))
+
+
+@game.route('/<game_id>/info', methods=['GET'])
+def get_game_info(game_id):
+    found_game = Game.query.filter_by(id=game_id).first()
+
+    if found_game is None or current_user.id is not found_game.player_id:
+        return redirect(url_for('game.index'))
+
+    return render_template('game/info_game.html', game=found_game)
