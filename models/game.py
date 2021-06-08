@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from models.answer import Answer
@@ -22,8 +23,10 @@ class Game(db.Model):
     current_turn = db.Column(db.Integer)
     amount_of_positions = db.Column(db.Integer)
     duplicate_colors = db.Column(db.Boolean)
+    cheat_mode = db.Column(db.Boolean)
     code = db.Column(db.String(500), nullable=True)
     completed = db.Column(db.Boolean)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.now())
 
     def generate_code(self):
         code = []
@@ -49,14 +52,17 @@ class Game(db.Model):
             if guess[i] == code[i]:
                 perfect_guesses += 1
             else:
-                remaining_guess += guess[i]
-                remaining_code += code[i]
+                remaining_guess.append(guess[i])
+                remaining_code.append(code[i])
 
         for i in range(len(remaining_guess)):
             if remaining_guess[i] in remaining_code:
                 good_guesses += 1
-                remaining_code -= remaining_guess[i]
+                remaining_code.remove(remaining_guess[i])
 
-        incorrect_guesses = len(remaining_guess)
+        incorrect_guesses = len(remaining_code)
+
+        if perfect_guesses == self.amount_of_positions:
+            self.completed = True
 
         return perfect_guesses, good_guesses, incorrect_guesses

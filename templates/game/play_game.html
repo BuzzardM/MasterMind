@@ -4,35 +4,46 @@
     <div class="container">
         <div class="game nes-container with-title">
             <h2 class="title">Game</h2>
+            <form method="POST" action="{{ url_for('game.make_guess', game_id=game.id) }}">
+                {% for i in range(game.amount_of_positions) %}
+                    <div class="nes-select">
+                        <label for="positions_select">Position {{ i + 1 }}</label>
+                        <select required id="positions_select" name="guess">
+                            <option value="" disabled selected hidden>Select...</option>
+                            {% for color in game.colors %}
+                                <option value="{{ color.name }}">{{ color.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endfor %}
+                <button type="submit" class="nes-btn is-primary">Guess</button>
+            </form>
         </div>
         <div class="box nes-container with-title">
             <h2 class="title">Game Log</h2>
             <section class="message-list messages">
-                <section class="message -left">
-                    <!-- Balloon -->
-                    <div class="nes-balloon from-left">
-                        <p>Hello NES.css</p>
-                    </div>
-                </section>
-
-                <section class="message -right">
-                    <!-- Balloon -->
-                    <div class="nes-balloon from-right">
-                        <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
-                    </div>
-                </section>
-                <section class="message-list messages">
+                {% for guess, answer in zip(game.guesses, game.answers) %}
+                    <section class="message -right">
+                        <!-- Balloon -->
+                        <div class="nes-balloon from-right">
+                            <p>{{ guess.guess }}</p>
+                        </div>
+                    </section>
                     <section class="message -left">
                         <!-- Balloon -->
                         <div class="nes-balloon from-left">
-                            <p>Hello NES.css</p>
+                            <p>Perfect: {{ answer.perfect_guesses }} Good: {{ answer.good_guesses }}
+                                Incorrect: {{ answer.incorrect_guesses }}</p>
                         </div>
                     </section>
-                </section>
+                {% endfor %}
             </section>
         </div>
     </div>
     <div class="nes-container">
         <progress class="nes-progress is-pattern" value="50" max="100"></progress>
+        {% if game.cheat_mode %}
+            <p>{{ game.code }}</p>
+        {% endif %}
     </div>
 {% endblock %}

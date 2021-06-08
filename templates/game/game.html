@@ -1,7 +1,33 @@
 {% extends "layout.html" %}
-{% block title %}Game{% endblock %}
+{% block title %}Games{% endblock %}
 {% block content %}
     <a id="game_btn" class="nes-btn is-primary" href="{{ url_for('game.new') }}">New Game</a>
     {# TODO: MAKE LIST OF GAMES OF CURRENT USER #}
-{#    <a class="nes-btn is-primary" href="{{ url_for('game.get_game') }}">Play Game</a>#}
+    <table id="games_table">
+        <tr>
+            <th>Game</th>
+            <th>Start date</th>
+            <th>Turns</th>
+            <th>Completed</th>
+            <th></th>
+        </tr>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.id }}</td>
+                <td>{{ game.created_date }}</td>
+                <td>{{ game.current_turn }}</td>
+                <td>{{ game.completed }}</td>
+                {% if not game.completed %}
+                    <td>
+                        <a class="nes-btn is-primary" href="{{ url_for('game.get_game', game_id=game.id) }}">Resume</a>
+                    </td>
+                {% else %}
+                    <td>
+                        {# TODO: MAKE IT POINT TO GAME INFO VIEW #}
+                        <a class="nes-btn is-primary" href="{{ url_for('game.get_game', game_id=game.id) }}">View</a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

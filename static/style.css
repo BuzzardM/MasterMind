@@ -43,3 +43,7 @@ footer {
 .messages{
     overflow: auto;
 }
+
+#games_table {
+    width: 100%;
+}

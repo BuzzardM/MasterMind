@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.secret_key = b'\xf3\xd8\xbdU\xf40HT3\x02\xcb\x8d\x9eO\xce\x8a.\xa5E\xec1\xe0\x16\xba'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mastermind.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.jinja_env.globals.update(zip=zip)
 app.register_blueprint(main)
 app.register_blueprint(auth)
 app.register_blueprint(game, url_prefix='/games')

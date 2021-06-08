@@ -19,7 +19,8 @@ def check_login():
 @game.route('/', methods=['GET'])
 def index():
     if request.method == 'GET':
-        return render_template('game/game.html')
+        games = Game.query.filter_by(player_id=current_user.id).all()
+        return render_template('game/game.html', games=games)
 
 
 @game.route('/new', methods=['GET', 'POST'])
@@ -31,11 +32,13 @@ def new():
         positions: int = request.form.get('positions')
         color_ids = request.form.getlist('colors')
         duplicate_colors: bool = (request.form.get('duplicate_colors') == 'enabled')
+        cheat_mode: bool = (request.form.get('cheat_mode') == 'enabled')
 
         new_game = Game(
             player_id=current_user.id,
             amount_of_positions=positions,
             duplicate_colors=duplicate_colors,
+            cheat_mode=cheat_mode,
             current_turn=1,
             completed=False
         )
@@ -59,7 +62,7 @@ def get_game(game_id: int):
         if playable_game is None or current_user.id is not playable_game.player_id:
             return redirect(url_for('game.index'))
 
-        return render_template('game/play_game.html')
+        return render_template('game/play_game.html', game=playable_game)
 
 
 @game.route('/<game_id>/guess', methods=['POST'])
@@ -70,7 +73,7 @@ def make_guess(game_id: int):
         if playable_game is None:
             return redirect(url_for('game.index'))
 
-        guess = request.form.get('guess')
+        guess = request.form.getlist('guess')
 
         new_guess = Guess(
             game_id=playable_game.id,
@@ -92,7 +95,6 @@ def make_guess(game_id: int):
         playable_game.answers.append(new_answer)
         playable_game.current_turn += 1
 
-        db.session.add(playable_game)
         db.session.commit()
 
         return redirect(url_for('game.get_game',  game_id=playable_game.id))
