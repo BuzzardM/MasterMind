@@ -11,6 +11,15 @@
     {% endblock %}
 </head>
 <body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class='nes-container is-centered alert'>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <nav>
     <ul class="mainnav">
         <li><a class="nes-btn" href="{{ url_for('main.index') }}">Home</a></li>

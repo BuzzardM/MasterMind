@@ -20,7 +20,7 @@ main{
 }
 
 footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     height: 2.5rem;
@@ -34,10 +34,12 @@ footer {
 
 .game{
     width: 70%;
+    height: 100%;
 }
 
 .box{
     width:30%;
+    height: 100%;
 }
 
 .messages{
@@ -46,4 +48,23 @@ footer {
 
 #games_table {
     width: 100%;
+}
+
+.alert{
+    border-color: red;
+    background-color: lightcoral;
+    list-style-type: none;
+}
+
+.victory-stats{
+    list-style-type: none;
+}
+
+.turns{
+    width: 70%;
+    height: 100%;
+}
+
+.info-stast{
+    width: 30%;
 }

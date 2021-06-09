@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import current_user
 
 from models.answer import Answer
@@ -34,11 +34,12 @@ def new():
         duplicate_colors = (request.form.get('duplicate_colors') == 'enabled')
         cheat_mode = (request.form.get('cheat_mode') == 'enabled')
 
-        # TODO: ADD FLASH MESSAGE LOGIC
         if len(color_ids) < MIN_COLORS:
+            flash('You need to select at least 6 colors!','warning')
             return redirect(url_for('game.new'))
 
         if duplicate_colors is False and len(color_ids) < positions:
+            flash('You need to select as much colors as positions or more!', 'warning')
             return redirect(url_for('game.new'))
 
         new_game = Game(

@@ -14,8 +14,7 @@
         {% for game in games %}
             <tr>
                 <td>{{ game.id }}</td>
-                {# TODO: FORMAT DATE #}
-                <td>{{ game.created_date }}</td>
+                <td>{{ game.created_date.strftime('%Y-%m-%d %H:%M')}}</td>
                 <td>{{ game.current_turn }}</td>
                 <td>{{ game.completed }}</td>
                 <td>{{ game.cheat_mode }}</td>
