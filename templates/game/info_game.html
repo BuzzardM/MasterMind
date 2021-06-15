@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Game info{% endblock %}
+{% block content_header %}Game info{% endblock %}
 {% block content %}
-
-    <div class="container">
+    <div id="game-info-container">
         <div class="turns nes-container with-title is-centered">
             <p class="title">Guesses</p>
             <table id="guesses_table">
@@ -16,10 +16,10 @@
                 {% for guess, answer in zip(game.guesses, game.answers) %}
                     <tr>
                         <td>{{ guess.turn }}</td>
-                        <td>{{ guess.guess}}</td>
-                        <td>{{ answer.perfect_guesses}}</td>
-                        <td>{{ answer.good_guesses}}</td>
-                        <td>{{ answer.incorrect_guesses}}</td>
+                        <td>{{ guess.guess }}</td>
+                        <td>{{ answer.perfect_guesses }}</td>
+                        <td>{{ answer.good_guesses }}</td>
+                        <td>{{ answer.incorrect_guesses }}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -27,26 +27,20 @@
         <div class="info-stats nes-container with-title is-centered">
             <p class="title">Info Statistics</p>
             <h1>Victory</h1>
-                <i class="nes-icon trophy is-large"></i>
-                <ul class="victory-stats">
-                    <li>Game ID: {{ game.id }}</li>
-                    <li>Date Created: {{ game.created_date.strftime('%Y-%m-%d %H:%M')}}</li>
-                    <li>Cheat Mode: {{ game.cheat_mode }}</li>
-                    <li>Turns Until Victory: {{ game.current_turn }}</li>
-                    <li>Amount of Positions Played: {{ game.amount_of_positions }}</li>
-                    <li>Duplicate Colors: {{ game.duplicate_colors }}</li>
-                    <li>Code: {{ game.code }}</li>
-                    <h2>Chosen Colors</h2>
-                    {% for color in game.colors %}
+            <i class="nes-icon trophy is-large"></i>
+            <ul class="victory-stats">
+                <li>Game ID: {{ game.id }}</li>
+                <li>Date Created: {{ game.created_date.strftime('%Y-%m-%d %H:%M') }}</li>
+                <li>Cheat Mode: {{ game.cheat_mode }}</li>
+                <li>Turns Until Victory: {{ game.current_turn }}</li>
+                <li>Amount of Positions Played: {{ game.amount_of_positions }}</li>
+                <li>Duplicate Colors: {{ game.duplicate_colors }}</li>
+                <li>Code: {{ game.code }}</li>
+                <h3>Chosen Colors</h3>
+                {% for color in game.colors %}
                     <li>{{ color.name }}</li>
-                    {% endfor %}
-                </ul>
-
-
-            {# CHOSEN COLORS #}
+                {% endfor %}
+            </ul>
         </div>
     </div>
-    {# TODO: DISPLAY GAME INFO #}
-   
-
 {% endblock %}

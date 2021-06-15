@@ -13,16 +13,20 @@ def register():
     if request.method == 'GET':
         return render_template('auth/register.html')
     elif request.method == 'POST':
-        email = request.form['email']
+        username = request.form['username']
         name = request.form['name']
         password = request.form['password']
 
-        possible_player = User.query.filter_by(email=email).first()
+        possible_player = User.query.filter_by(username=username).first()
 
         if possible_player:
             return redirect(url_for('auth.register'))
 
-        new_player = User(email=email, name=name, password=bcrypt.hashpw(password.encode(), bcrypt.gensalt()))
+        new_player = User(
+            username=username,
+            name=name,
+            password=bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        )
 
         db.session.add(new_player)
         db.session.commit()
@@ -37,10 +41,10 @@ def login():
     if request.method == 'GET':
         return render_template('auth/login.html')
     elif request.method == 'POST':
-        email = request.form['email']
+        username = request.form['username']
         password = request.form['password']
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(username=username).first()
 
         if not user or not bcrypt.checkpw(password.encode(), user.password):
             flash('Please check your login details and try again.')

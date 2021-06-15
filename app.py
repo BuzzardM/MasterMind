@@ -35,10 +35,15 @@ def fill_colors():
     db.session.commit()
 
 
-with app.app_context():
+def setup_db():
     db.drop_all()
     db.create_all()
     fill_colors()
+
+
+with app.app_context():
+    # setup_db()
+    pass
 
 
 @lm.user_loader

@@ -1,70 +1,83 @@
 {% extends "layout.html" %}
-{% block title %}Mastermind{% endblock %}
+{% block title %}Game{% endblock %}
+{% block content_header %}Mastermind{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="game nes-container with-title">
-            <h2 class="title">Game</h2>
-
-            {% if game.completed %}
-                <h1>Victory</h1>
-                <i class="nes-icon trophy is-large"></i>
-                <div class="nes-container with-title is-centered">
-                    <p class="title">Stats</p>
-                    <ul class="victory-stats">
-                        <li>Turns Until Victory: {{ game.current_turn }}</li>
-                        <li>Amount of Positions Played: {{ game.amount_of_positions }}</li>
-                        <li>Code: {{ game.code }}</li>
-                    </ul>
-                </div>
-                <a class="nes-btn" href="{{ url_for('game.index') }}">Go Back To Game Menu</a>
-            {% else %}
-            <form method="POST" action="{{ url_for('game.make_guess', game_id=game.id) }}">
-                {% for i in range(game.amount_of_positions) %}
-                    <div class="nes-select">
-                        <label for="positions_select">Position {{ i + 1 }}</label>
-                        <select required id="positions_select" name="guess">
-                            <option value="" disabled selected hidden>Select...</option>
-                            {% for color in game.colors %}
-                                <option value="{{ color.name }}">{{ color.name }}</option>
-                            {% endfor %}
-                        </select>
+    <div class="game-flex">
+        <div class="container">
+            <div class="game nes-container with-title">
+                <h2 class="title">Game</h2>
+                {% if game.completed %}
+                    <h1>Victory</h1>
+                    <i class="nes-icon trophy is-large"></i>
+                    <div class="nes-container with-title is-centered">
+                        <p class="title">Stats</p>
+                        <ul class="victory-stats">
+                            <li>Turns Until Victory: {{ game.current_turn }}</li>
+                            <li>Amount of Positions Played: {{ game.amount_of_positions }}</li>
+                            <li>Code: {{ game.code }}</li>
+                        </ul>
                     </div>
-                {% endfor %}
-                {% if not game.completed %}
-                    <button type="submit" class="nes-btn is-primary"
-                            onclick="if (this.form.validate()) { this.disabled = true; this.form.submit(); }">
-                        Guess
-                    </button>
+                    <div id="victory-buttons">
+                        <a class="nes-btn" href="{{ url_for('game.index') }}">Back</a>
+                        <a class="nes-btn is-primary" href="{{ url_for('game.get_game_info', game_id=game.id) }}">Show advanced
+                            stats</a>
+                    </div>
+                {% else %}
+                    <form id="play-game-form" method="POST" action="{{ url_for('game.make_guess', game_id=game.id) }}">
+                        <div id="play-game-form-content">
+                            {% for i in range(game.amount_of_positions) %}
+                                <div class="nes-select">
+                                    <label for="positions_select">Position {{ i + 1 }}</label>
+                                    <select required id="positions_select" name="guess">
+                                        <option value="" disabled selected hidden>Select...</option>
+                                        {% for color in game.colors %}
+                                            <option value="{{ color.name }}">{{ color.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div id="play-game-form-submit">
+                            <button type="submit" class="nes-btn is-primary" id="guess-btn"
+                                    onclick="if (this.form.validate()) { this.disabled = true; this.form.submit(); }">
+                                Guess
+                            </button>
+                        </div>
+                    </form>
+                    </div>
+                    <div class="game-info-box nes-container with-title">
+                        <h2 class="title">Game Log</h2>
+                        <div id="game-info-message-box">
+                            <section class="message-list messages">
+                                {% for guess, answer in zip(game.guesses, game.answers) %}
+                                    <section class="message -right">
+                                        <!-- Balloon -->
+                                        <div class="nes-balloon from-right">
+                                            <p>{{ guess.guess }}</p>
+                                        </div>
+                                    </section>
+                                    <section class="message -left">
+                                        <!-- Balloon -->
+                                        <div class="nes-balloon from-left">
+                                            <p>Perfect: {{ answer.perfect_guesses }} Good: {{ answer.good_guesses }}
+                                                Incorrect: {{ answer.incorrect_guesses }}</p>
+                                        </div>
+                                    </section>
+                                {% endfor %}
+                            </section>
+                        </div>
+                    </div>
+                    </div>
+                    {% if game.cheat_mode %}
+                        <div class="nes-container with-title game-box">
+                            <p class="title">Cheat menu</p>
+                            <p>{{ game.code }}</p>
+                        </div>
+                    {% endif %}
                 {% endif %}
-            </form>
-        </div>
-        <div class="box nes-container with-title">
-            <h2 class="title">Game Log</h2>
-            <section class="message-list messages">
-                {% for guess, answer in zip(game.guesses, game.answers) %}
-                    <section class="message -right">
-                        <!-- Balloon -->
-                        <div class="nes-balloon from-right">
-                            <p>{{ guess.guess }}</p>
-                        </div>
-                    </section>
-                    <section class="message -left">
-                        <!-- Balloon -->
-                        <div class="nes-balloon from-left">
-                            <p>Perfect: {{ answer.perfect_guesses }} Good: {{ answer.good_guesses }}
-                                Incorrect: {{ answer.incorrect_guesses }}</p>
-                        </div>
-                    </section>
-                {% endfor %}
-            </section>
-        </div>
     </div>
-    {% if game.cheat_mode %}
-        <div class="nes-container with-title">
-            <p class="title">Cheat menu</p>
-            <p>{{ game.code }}</p>
-        </div>
-    {% endif %}
-
-    {% endif %}
+     <script>
+         const myDiv = document.getElementById("game-info-message-box");
+         myDiv.scrollTop = myDiv.scrollHeight;
+    </script>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}Login{% endblock %}
+{% block content_header %}Login{% endblock %}
 
 {% block content %}
     {% with messages = get_flashed_messages() %}
@@ -10,14 +11,15 @@
             </div>
         {% endif %}
     {% endwith %}
-    <div>
+    <div class="nes-container with-title auth-container">
+        <p class="title">Register form</p>
         <form method="POST" action="{{ url_for('auth.login') }}">
-            <div class="nes-field">
-                <label for="email_field">Email</label>
-                <input type="text" id="email_field" class="nes-input" name="email">
+            <div class="nes-field auth-field">
+                <label for="username_field">Username</label>
+                <input type="text" id="username_field" class="nes-input" name="username">
             </div>
 
-            <div class="nes-field">
+            <div class="nes-field auth-field">
                 <label for="password_field">Password</label>
                 <input type="password" id="password_field" class="nes-input" name="password">
             </div>

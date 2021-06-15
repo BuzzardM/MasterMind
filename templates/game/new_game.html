@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
-{% block title %}Game{% endblock %}
+{% block title %}Set-up Game{% endblock %}
+{% block content_header %}Set-up Game{% endblock %}
 {% block content %}
     <p>Select your options to play Mastermind!</p>
     <div>
         <form method="POST" action="{{ url_for('game.new') }}">
-            <div class="nes-container with-title is-centered">
+            <div class="nes-container with-title is-centered new-game-select-box">
                 <p class="title">Positions</p>
                 <div class="nes-select">
                     <label for="positions_select"></label>
@@ -16,7 +17,7 @@
                     </select>
                 </div>
             </div>
-            <div class="nes-container with-title is-centered">
+            <div class="nes-container with-title is-centered new-game-select-box">
                 <p class="title">Colors</p>
                 {% for color in colors %}
                     <label>
@@ -25,7 +26,7 @@
                     </label>
                 {% endfor %}
             </div>
-            <div class="nes-container with-title is-centered">
+            <div class="nes-container with-title is-centered new-game-select-box">
                 <p class="title">Other options</p>
                 <label>
                     <input type="checkbox" class="nes-checkbox" name="duplicate_colors" value="enabled"/>

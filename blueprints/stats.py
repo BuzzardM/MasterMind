@@ -30,10 +30,12 @@ def index():
         )
 
 
-@stats.route('/<user_id>', methods=['GET'])
-def user_stats(user_id):
-    if request.method == 'GET':
-        found_user = User.query.filter_by(id=user_id).first()
+@stats.route('/', methods=['POST'])
+def user_stats():
+    if request.method == 'POST':
+        username = request.form['username']
+
+        found_user = User.query.filter_by(username=username).first()
         if found_user is None:
             return redirect(url_for('main.index'))
 
