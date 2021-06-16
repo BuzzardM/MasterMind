@@ -59,7 +59,7 @@ def new():
         db.session.add(new_game)
         db.session.commit()
 
-        return redirect((url_for('game.get_game', game_id=new_game.id)))
+        return redirect(url_for('game.get_game', game_id=new_game.id))
 
 
 @game.route('/<game_id>', methods=['GET'])
