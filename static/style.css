@@ -145,6 +145,7 @@ main {
     height: 19%;
     width: 45% !important;
     margin: 0 !important;
+    text-align: start;
 }
 
 #victory-buttons {
@@ -179,4 +180,11 @@ main {
     position: fixed;
     left: 1vw;
     bottom: 1vh;
+}
+
+#game-music-container {
+    position: fixed;
+    padding: 0;
+    left: 1vw;
+    top: 1vh;
 }
