@@ -68,9 +68,6 @@
                             </section>
                         </div>
                     </div>
-                    <div id="game-music-container" class="nes-container">
-                        <audio id="game-music-player" controls autoplay></audio>
-                    </div>
                     </div>
                     {% if game.cheat_mode %}
                         <div class="nes-container with-title game-box">
@@ -83,43 +80,5 @@
     <script>
         const myDiv = document.getElementById("game-info-message-box");
         myDiv.scrollTop = myDiv.scrollHeight;
-
-        const songPaths = [
-            "../../static/audio/Africa_8_Bit.mp3",
-            "../../static/audio/All_Star_8_Bit.mp3",
-            "../../static/audio/Another_One_Bites_The_Dust_8_bit.mp3",
-            "../../static/audio/Blue_Da_Ba_Dee_8_Bit.mp3",
-            "../../static/audio/Chop_Suey_8_Bit.mp3",
-            "../../static/audio/Clint_Eastwood_8_Bit.mp3",
-            "../../static/audio/Dont_Stop_Me_Now_8_Bit.mp3",
-            "../../static/audio/Harder_Better_Faster_Stronger_8_Bit.mp3",
-            "../../static/audio/Never_Gonna_Give_You_Up_8_Bit.mp3",
-            "../../static/audio/Radioactive_8_Bit.mp3",
-            "../../static/audio/Take_On_Me_8_Bit.mp3",
-            "../../static/audio/What_Is_Love.mp3",
-            "../../static/audio/Shooting_Stars_8_Bit.mp3",
-        ]
-
-        let currentSong = Math.floor(Math.random() * songPaths.length);
-        const audioPlayer = document.getElementById("game-music-player");
-
-        function next() {
-            if (currentSong === songPaths.length - 1) currentSong = 0;
-            else currentSong++;
-
-            audioPlayer.src = songPaths[currentSong];
-        }
-
-        if (audioPlayer === null) {
-            throw "Audio player does not exist."
-        } else {
-            audioPlayer.src = songPaths[currentSong];
-            audioPlayer.volume = 0.15;
-
-            audioPlayer.addEventListener('ended', next, false);
-        }
-
-
-
     </script>
 {% endblock %}

@@ -181,10 +181,3 @@ main {
     left: 1vw;
     bottom: 1vh;
 }
-
-#game-music-container {
-    position: fixed;
-    padding: 0;
-    left: 1vw;
-    top: 1vh;
-}
