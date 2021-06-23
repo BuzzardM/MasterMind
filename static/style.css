@@ -1,0 +1,183 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: 10vh;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    height: 5vh;
+    width: 100vw;
+}
+
+footer p {
+    margin: 0 !important;
+    width: inherit;
+    text-align: center;
+}
+
+main {
+    padding: 5%;
+    height: 85vh;
+    position: absolute;
+    flex: auto;
+    margin: 0 1vw;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    list-style-type: none;
+    padding-top: 0.5%;
+}
+
+.main-nav li {
+    margin: 0 1%;
+}
+
+#game_btn {
+    list-style-type: none;
+    margin-bottom: 2vh;
+}
+
+.new-game-select-box {
+    margin-bottom: 2vh;
+}
+
+.game-box {
+    margin-top: 2vh;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    height: 0;
+}
+
+#game-info-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    height: 90%;
+}
+
+.game {
+    width: 60%;
+}
+
+.game-info-box {
+    width: 40%;
+}
+
+.messages {
+    overflow: auto;
+}
+
+#games_table {
+    width: 100%;
+}
+
+.alert {
+    border-color: red;
+    background-color: lightcoral;
+    list-style-type: none;
+}
+
+.victory-stats {
+    list-style-type: none;
+}
+
+.turns {
+    width: 70%;
+    height: 100%;
+}
+
+.info-stats {
+    width: 30%;
+}
+
+.game-flex {
+    height: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+#game-info-message-box {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#guess-btn {
+    width: 40%;
+}
+
+#play-game-form {
+    height: 100%;
+}
+
+#play-game-form-content {
+    height: 85%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+#play-game-form-submit {
+    width: 100%;
+}
+
+#play-game-form-content div {
+    height: 19%;
+    width: 45% !important;
+    margin: 0 !important;
+    text-align: start;
+}
+
+#victory-buttons {
+    padding-top: 1%;
+}
+
+#guesses_table {
+    height: 100%;
+    display: block;
+    overflow-y: scroll;
+}
+
+.flipped-image {
+  transform: scaleX(-1);
+}
+
+.auth-container button {
+    margin-top: 1%;
+    width: 15%;
+}
+
+.auth-field {
+    width: 50%;
+    margin: auto;
+}
+
+#search-player-container {
+    border-bottom: none;
+}
+
+#media-button {
+    position: fixed;
+    left: 1vw;
+    bottom: 1vh;
+}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Stats{% endblock %}
+{% block content_header %}Stats{% endblock %}
+{% block content %}
+    <div class="nes-container with-title auth-container" id="search-player-container">
+        <p class="title">Search player</p>
+        <form method="POST" action="{{ url_for('stats.user_stats') }}">
+            <div class="nes-field auth-field">
+                <label for="username_field">Username</label>
+                <input type="text" id="username_field" class="nes-input" name="username">
+                <div id="search-player-btn">
+                    <button type="submit" class="nes-btn is-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="nes-container with-title auth-container">
+        <p class="title">Stats</p>
+        <p>{{ user.name }}'s stats page</p>
+        <p>Games played: {{ len(user.games) }}</p>
+        <p>Games completed: {{ len(completed_games) }}</p>
+        <p>Games cheated: {{ len(cheated_games) }}</p>
+        <p>Total turns played: {{ total_turns }}</p>
+    </div>
+{% endblock %}

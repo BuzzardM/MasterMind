@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content_header %}Register{% endblock %}
+
+{% block content %}
+    <div class="nes-container with-title auth-container">
+        <p class="title">Login form</p>
+        <form method="POST" action="{{ url_for('auth.register') }}">
+
+            <div class="nes-field auth-field">
+                <label for="username_field">Username</label>
+                <input type="text" id="username_field" class="nes-input" name="username">
+            </div>
+
+            <div class="nes-field auth-field">
+                <label for="fullname_field">Full name</label>
+                <input type="text" id="fullname_field" class="nes-input" name="name">
+            </div>
+
+            <div class="nes-field auth-field">
+                <label for="password_field">Password</label>
+                <input type="password" id="password_field" class="nes-input" name="password">
+            </div>
+
+            <button type="submit" class="nes-btn is-primary">Register</button>
+        </form>
+    </div>
+{% endblock %}

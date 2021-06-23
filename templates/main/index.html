@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content_header %}<img src="../../static/images/mastermind_logo.png" alt="Mastermind Logo">{% endblock %}
+{% block content %}
+    <p>Welcome to MasterMind!</p>
+    {% if not current_user.is_authenticated %}
+        <p>Click <a href="{{ url_for('auth.register') }}">here</a> to sign-up.</p>
+    {% endif %}
+    <div>
+        <img src="../../static/images/einstein_gif.gif" alt="einstein power slice boom">
+        <img src="../../static/images/hawking_gif.gif" alt="hawking laser woop woop boom" class="flipped-image">
+    </div>
+    <div>
+        <button id="media-button" onclick="manageMusic(this)">Play/Pause</button>
+    </div>
+    <script>
+        const audio = new Audio("../../static/audio/Visager_-_Factory_Time.mp3");
+
+        function manageMusic(btn) {
+            console.log(btn);
+            if (audio.paused) {
+                btn.innerHTML = "Pause";
+                audio.play();
+            } else {
+                btn.innerHTML = "Play";
+                audio.pause();
+            }
+        }
+
+        audio.volume = 0.15;
+        audio.play();
+    </script>
+{% endblock %}

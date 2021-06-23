@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}Set-up Game{% endblock %}
+{% block content_header %}Set-up Game{% endblock %}
+{% block content %}
+    <p>Select your options to play Mastermind!</p>
+    <div>
+        <form method="POST" action="{{ url_for('game.new') }}">
+            <div class="nes-container with-title is-centered new-game-select-box">
+                <p class="title">Positions</p>
+                <div class="nes-select">
+                    <label for="positions_select"></label>
+                    <select required id="positions_select" name="positions">
+                        <option value="" disabled selected hidden>Select...</option>
+                        {% for i in range(min_pos, max_pos + 1) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="nes-container with-title is-centered new-game-select-box">
+                <p class="title">Colors</p>
+                {% for color in colors %}
+                    <label>
+                        <input type="checkbox" class="nes-checkbox" name="colors" value="{{ color.id }}" checked/>
+                        <span>{{ color.name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+            <div class="nes-container with-title is-centered new-game-select-box">
+                <p class="title">Other options</p>
+                <label>
+                    <input type="checkbox" class="nes-checkbox" name="duplicate_colors" value="enabled"/>
+                    <span>Duplicate colors</span>
+                </label>
+                <label>
+                    <input type="checkbox" class="nes-checkbox" name="cheat_mode" value="enabled" />
+                    <span>Cheat mode</span>
+                </label>
+            </div>
+            <button type="submit" class="nes-btn is-primary"
+                    onclick="if (this.form.validate()) { this.disabled = true; this.form.submit(); }">
+                Start game
+            </button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Mastermind - {% block title %}{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="shortcut icon" href="{{ url_for('main.favicon') }}">
+    {% endblock %}
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class='nes-container is-centered alert'>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<nav>
+    <ul class="main-nav">
+        <li><a class="nes-btn" href="{{ url_for('main.index') }}">Home</a></li>
+        {% if not current_user.is_authenticated %}
+            <li><a class="nes-btn" href="{{ url_for('auth.register') }}">Register</a></li>
+            <li><a class="nes-btn" href="{{ url_for('auth.login') }}">Login</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            <li><a class="nes-btn" href="{{ url_for('game.index') }}">Game</a></li>
+            <li><a class="nes-btn" href="{{ url_for('stats.index') }}">Stats</a></li>
+            <li>
+                <form method="POST" action="{{ url_for('auth.logout') }}">
+                    <button class="nes-btn" type="submit">Logout</button>
+                </form>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+<main class="nes-container with-title is-centered">
+    <h1>{% block content_header %}{% endblock %}</h1>
+    {% block content %}{% endblock %}
+</main>
+<footer>
+    <p>Copyright (c) 2021 Donneh & Michiel. All rights reserved.</p>
+</footer>
+</body>
+</html>
